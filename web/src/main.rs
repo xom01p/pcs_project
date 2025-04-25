@@ -1,6 +1,7 @@
+use actix_files::Files;
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 
-#[get("/")]
+#[get("/api/test")]
 async fn test() -> impl Responder {
     HttpResponse::Ok().body("test")
 }
