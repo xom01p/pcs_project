@@ -15,4 +15,9 @@ $(document).ready(function() {
 
     console.log('jQuery loaded:', typeof $ !== 'undefined');
     console.log('Blob element:', blob.length);
+
+    $(window).on('mousemove', function(e) {
+        x = e.pageX;
+        y = e.pageY;
+    });
 }
