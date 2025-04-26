@@ -20,4 +20,10 @@ $(document).ready(function() {
         x = e.pageX;
         y = e.pageY;
     });
+
+    $('.hamburger, .menu-inner').on('mouseenter', function() {
+        console.log('Menu expanded');
+        $(this).parent().addClass('expanded');
+        menuExpanded = true;
+    });
 }
