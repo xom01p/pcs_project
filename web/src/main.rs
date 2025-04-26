@@ -1,5 +1,10 @@
 use actix_files::Files;
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
+use std::sync::Arc;
+use tokio::sync::Mutex;
+use mysql::*;
+
+type DbPool = Arc<Mutex<Pool>>;
 
 #[get("/api/test")]
 async fn test() -> impl Responder {
