@@ -6,4 +6,5 @@ use tokio::sync::Mutex;
 pub type DbPool = Arc<Mutex<Pool>>;
 
 fn main(){
+  
 }
