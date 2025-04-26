@@ -26,4 +26,10 @@ $(document).ready(function() {
         $(this).parent().addClass('expanded');
         menuExpanded = true;
     });
+
+    $('.menu-inner').on('mouseleave', function() {
+        console.log('Menu collapsed');
+        menuExpanded = false;
+        $(this).parent().removeClass('expanded');
+    });
 }
