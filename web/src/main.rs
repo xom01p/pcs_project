@@ -7,14 +7,14 @@ use mysql::*;
 type DbPool = Arc<Mutex<Pool>>;
 
 fn connect_db() -> DbPool {
-    let url = "mysql://root:1234@localhost:3306/pcs_server";
+    let url = "mysql://user:Pcs1234@localhost:3306/pcs_server";
     let pool = Pool::new(url).expect("Failed to create pool");
     Arc::new(Mutex::new(pool))
 }
 
 #[get("/api/test")]
 async fn test() -> impl Responder {
-    HttpResponse::Ok().body("test")
+    HttpResponse::Ok().body("test endpoint")
 }
 
 #[post("/echo")]
@@ -28,11 +28,13 @@ async fn manual_check() -> impl Responder {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    let db_pool = connect_db();
+
     HttpServer::new(|| {
         App::new()
             .service(test)
             .route("/hey", web::get().to(manual_check))
-            .service(Files::new("/","./static").index_file("index.html"))
+            .service(Files::new("/", "./static").index_file("index.html"))
     })
     .bind(("0.0.0.0", 8080))?
     .run()
