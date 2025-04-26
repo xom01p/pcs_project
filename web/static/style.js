@@ -39,4 +39,39 @@ $(document).ready(function() {
 
     var hoverZone = 150;
     var expandAmount = 20;
+
+    function svgCurve() {
+        if (Math.abs(curveX - x) < 1) {
+            xitteration = 0;
+        } else {
+            if (menuExpanded) {
+                targetX = 0;
+            } else {
+                xitteration = 0;
+                targetX = x > hoverZone ? 0 : -(((60 + expandAmount) / 100) * (x - hoverZone));
+            }
+            xitteration++;
+        }
+
+        if (Math.abs(curveY - y) < 1) {
+            yitteration = 0;
+        } else {
+            yitteration++;
+        }
+
+        curveX = easeOutExpo(xitteration, curveX, targetX - curveX, 100);
+        curveY = easeOutExpo(yitteration, curveY, y - curveY, 100);
+
+        var anchorDistance = 200;
+        var curviness = anchorDistance - 40;
+
+        var newCurve = `M60,${height}H0V0h60v${curveY - anchorDistance}c0,${curviness},${curveX},${curviness},${curveX},${anchorDistance}S60,${curveY},60,${curveY + anchorDistance * 2}V${height}z`;
+
+        blobPath.attr('d', newCurve);
+        blob.width(curveX + 60);
+
+        hamburger.css('transform', `translate(${curveX}px, ${curveY}px)`);
+
+        window.requestAnimationFrame(svgCurve);
+    }
 }
